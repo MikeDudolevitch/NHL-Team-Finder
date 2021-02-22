@@ -1,0 +1,1 @@
+# All data coming from the API. Require HTTParty
