@@ -6,6 +6,6 @@ require 'json'
 #NOTE TO SELF: IF I CHANGE MY PROJECT IDEA, REMEMBER TO UPDATE THE NAME OF HOCKEY.RB IN HERE!
 require_relative '../lib/api'
 require_relative '../lib/cli'
-require_relative '../lib/charts'
+require_relative '../lib/team'
 require 'bundler'
 Bundler.require

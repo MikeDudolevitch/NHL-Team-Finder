@@ -6,13 +6,9 @@
 
 class API
     def get_data
-      
         uri = URI("https://statsapi.web.nhl.com/api/v1/teams")
         response = Net::HTTP.get(uri)
         teams = JSON.parse(response)
-        teams["teams"].each do |team|
-            Team.new(team)
-        end
-       
+        teams["teams"].each {|team| Team.new(team)}
     end
 end
