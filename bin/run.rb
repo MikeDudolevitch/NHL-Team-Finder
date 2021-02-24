@@ -1,1 +1,0 @@
-#Executable file to terminal. Require environment files
