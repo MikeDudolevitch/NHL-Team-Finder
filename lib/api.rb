@@ -9,7 +9,10 @@ class API
       
         uri = URI("https://statsapi.web.nhl.com/api/v1/teams")
         response = Net::HTTP.get(uri)
-        puts JSON.parse(response)
-        
+        teams = JSON.parse(response)
+        teams["teams"].each do |team|
+            Team.new(team)
+        end
+       
     end
 end
