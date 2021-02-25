@@ -1,12 +1,20 @@
 #Gets inputs, Displays messages to terminal
-class Cli
+class CLI
+    def run
+        greeting
+        sleep(1)
+        list
+    end
     
     def greeting
-        puts "Welcome to my NHL Team Finder App! Wanna check out some hockey teams and stats?"
-        api_scraper_method
+        puts "Welcome to the NHL Team Finder App. Let's drop the puck!"
+
     end
-    def api_scraper_method
-        
+    def list
+        names = Team.sorted_by_name.map {|team| team.name}
+        names.each.with_index(1) do |name, index| 
+            puts "#{index}. #{name}"
+        end
     end
 
 end
