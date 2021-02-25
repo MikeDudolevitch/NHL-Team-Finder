@@ -3,6 +3,7 @@ require 'pry'
 require 'net/http'
 require 'open-uri'
 require 'json'
+require 'tty-prompt'
 #NOTE TO SELF: IF I CHANGE MY PROJECT IDEA, REMEMBER TO UPDATE THE NAME OF HOCKEY.RB IN HERE!
 require_relative '../lib/api'
 require_relative '../lib/cli'
