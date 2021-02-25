@@ -26,17 +26,21 @@ class CLI
 *************************************************************************************"
     end
 
-    def list #Numbered list of NHL Teams to choose
+    def list #Numbered list of NHL Teams to choose from
         names = Team.sorted_by_name.map {|team| team.name}
         names.each.with_index(1) {|name, index| puts "#{index}. #{name}"}
-        puts "Which team would you like to check out?" 
+        puts "
+        Which team would you like to check out?
+        " 
         input = gets.chomp
         display(input)
     end
 
-    def display(input) #switch to i to method body if doesnt work
+    def display(input) 
+        sleep(1)
         indiv_team = Team.sorted_by_name[input.to_i]
-        puts "#{indiv_team.first_year_of_play}"
+        puts "
+        You've selected the #{indiv_team.name}. They were founded in #{indiv_team.first_year_of_play}.
+        "
     end
-
 end
