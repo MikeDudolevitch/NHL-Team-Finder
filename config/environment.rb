@@ -10,3 +10,5 @@ require_relative '../lib/cli'
 require_relative '../lib/team'
 require 'bundler'
 Bundler.require
+
+PROMPT = TTY::Prompt.new(active_color: :red)
