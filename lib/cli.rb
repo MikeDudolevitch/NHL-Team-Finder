@@ -1,46 +1,51 @@
 #Gets inputs, Displays messages to terminal
 class CLI
     def run
+        sleep(0.5)
         greeting
         sleep(3)
-        list
+        menu
     end
     
     def greeting 
         puts "  
-************************************************************************************
-                                
-                                     ____________________
-                          __        /xxxxxxxxxx|xxxxxxxx/|
-                         /_/       /xxxxxxxxxxx|xxxxxxx/x|
-                        /_/       |xx|xxxxxxxxx|xxxxxx|xx|
-                       / /        |xx|xxxxxxxxx|xxxxxx|xx|
-                      / /         |xx|xxxxxxxxx|xxxxxx|xx|
-                     / /          |xx|xxxxxxxxx|xxxxxx|xx|
-            ________/ /           |x/         /       |x/
- __________|__|_|_|__/____________|/_________/________|/____________________________
-             (_)                 /          /        /
-                                |__________/________/
-
-            WELCOME TO THE NHL TEAM ORIGINS APP. LET'S DROP THE PUCK!
+*************************************************************************************
+*                                                                                   *
+*                                     ____________________                          *
+*                          __        /xxxxxxxxxx|xxxxxxxx/|                         *
+*                         /_/       /xxxxxxxxxxx|xxxxxxx/x|                         *
+*                        /_/       |xx|xxxxxxxxx|xxxxxx|xx|                         *
+*                       / /        |xx|xxxxxxxxx|xxxxxx|xx|                         *
+*                      / /         |xx|xxxxxxxxx|xxxxxx|xx|                         *
+*                     / /          |xx|xxxxxxxxx|xxxxxx|xx|                         *
+*            ________/ /           |x/         /       |x/                          *
+* __________|__|_|_|__/____________|/_________/________|/___________________________*
+*             (_)                 /          /         /                            *
+*                                |__________/_________/                             *
+*                                                                                   *
+*            WELCOME TO THE NHL TEAM ORIGINS APP. LET'S DROP THE PUCK!              *
 *************************************************************************************"
     end
 
-    def list #Numbered list of NHL Teams to choose from
+    def list
         names = Team.sorted_by_name.map {|team| team.name}
-        names.each.with_index(1) {|name, index| puts "#{index}. #{name}"}
-        puts "
-        Which team would you like to check out?
-        " 
-        input = gets.chomp
-        display(input)
+        names.each do |name|
+            # puts "#{name}"
+        end
+    end
+    
+    def menu #Numbered list of NHL Teams to choose from
+        prompt = TTY::Prompt.new
+        selection = prompt.select("Which team would you like to know more about?", list, per_page: 10)
+        display(selection)
+        team = Team.find_by_name(selection)
+    end
+    
+    def display(selection) 
+        puts "#{selection.name} #{selection.first_year_of_play}" 
     end
 
-    def display(input) 
-        sleep(1)
-        indiv_team = Team.sorted_by_name[input.to_i]
-        puts "
-        You've selected the #{indiv_team.name}. They were founded in #{indiv_team.first_year_of_play}.
-        "
+    def exit
+        
     end
 end

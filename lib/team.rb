@@ -14,6 +14,12 @@ class Team
         @@all
     end
 
+    def self.find_by_name(name)
+        self.all.find do |team|
+            team.name == name
+        end
+    end
+
     def self.sorted_by_name #
         self.all.sort_by {|team| team.name}
     end
