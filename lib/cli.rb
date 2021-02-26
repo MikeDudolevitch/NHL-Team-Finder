@@ -3,7 +3,7 @@ class CLI
     def run
         sleep(0.5)
         greeting
-        sleep(3)
+        sleep(2)
         menu
     end
     
@@ -34,27 +34,45 @@ class CLI
     
     def menu #Numbered list of NHL Teams to choose from
         prompt = TTY::Prompt.new(active_color: :red)
-        selection = prompt.select("Which team would you like to know more about? Scroll down for more options!", list, per_page: 10)
-        team = Team.find_by_name(selection)
+        input = prompt.select("
+        Which team would you like to know more about? Scroll down for more options!
+        ", list, per_page: 10)
+        team = Team.find_by_name(input)
         display(team)
-        selection2 = nil
-        while selection2 != "Exit"
-            selection2 = prompt.select("Would you like to select another team?", %w(Team Exit))
-            case selection2 
-            when "Team"
+        input2 = nil
+        while input2 != "Exit"
+            input2 = prompt.select("Would you like to select another team?", %w(Teams Exit))
+            case input2 
+            when "Teams"
+                sleep 1
                 menu
             when "Exit"
+                sleep 1
                 goodbye
             end
         end
     end
     
     def display(selection) 
-        puts "You have selected #{selection.name} They were founded#{selection.first_year_of_play}" 
+ puts "
+*****************************************************************************************************************************
+
+You have selected the #{selection.name}! Their first year in the National Hockey League was #{selection.first_year_of_play}.
+
+For up to date rosters, schedule, and info, visit the team's official website at #{selection.official_site_url}.
+
+****************************************************************************************************************************"
     end
 
     def goodbye
-        puts "Thank you for visiting the NHL Team Origins App. Take care and get pucks deep!"
+        puts "
+
+****************************************************************************************************************************
+
+Thank you for visiting the NHL Team Origins App. Take care and get pucks deep!
+
+****************************************************************************************************************************
+"
         exit
     end
 end
