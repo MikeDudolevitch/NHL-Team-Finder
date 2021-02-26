@@ -28,24 +28,33 @@ class CLI
     end
 
     def list
-        names = Team.sorted_by_name.map {|team| team.name}
-        names.each do |name|
-            # puts "#{name}"
-        end
+        all_teams = Team.sorted_by_name
+        all_teams.collect {|team| team.name}
     end
     
     def menu #Numbered list of NHL Teams to choose from
-        prompt = TTY::Prompt.new
-        selection = prompt.select("Which team would you like to know more about?", list, per_page: 10)
-        display(selection)
+        prompt = TTY::Prompt.new(active_color: :red)
+        selection = prompt.select("Which team would you like to know more about? Scroll down for more options!", list, per_page: 10)
         team = Team.find_by_name(selection)
+        display(team)
+        selection2 = nil
+        while selection2 != "Exit"
+            selection2 = prompt.select("Would you like to select another team?", %w(Team Exit))
+            case selection2 
+            when "Team"
+                menu
+            when "Exit"
+                goodbye
+            end
+        end
     end
     
     def display(selection) 
-        puts "#{selection.name} #{selection.first_year_of_play}" 
+        puts "You have selected #{selection.name} They were founded#{selection.first_year_of_play}" 
     end
 
-    def exit
-        
+    def goodbye
+        puts "Thank you for visiting the NHL Team Origins App. Take care and get pucks deep!"
+        exit
     end
 end
