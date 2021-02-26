@@ -15,9 +15,7 @@ class Team
     end
 
     def self.find_by_name(name)
-        self.all.find do |team|
-            team.name == name
-        end
+        self.all.find {|team| team.name == name}
     end
 
     def self.sorted_by_name #

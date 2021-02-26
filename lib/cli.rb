@@ -2,7 +2,9 @@ class CLI
     def run
         sleep(0.5)
         greeting
-        sleep(2)
+        sleep 2
+        disclaimer
+        sleep 4
         menu
     end
     
@@ -23,7 +25,16 @@ class CLI
 *                                |__________/_________/                             *
 *                                                                                   *
 *            WELCOME TO THE NHL TEAM ORIGINS APP. LET'S DROP THE PUCK!              *
+*                                                                                   *
 *************************************************************************************"
+    end
+
+    def disclaimer
+        puts "
+======================================================================================        
+NOTE: This app displays data about the inaugural season of each active NHL franchise.
+Some franchises have changed cities and team names during their existences.                  
+======================================================================================"
     end
 
     def list
@@ -36,12 +47,12 @@ class CLI
 
 Which team would you like to know more about? Scroll down for more options!
 
-        ", list, per_page: 10)
+        ", list, per_page: 10, symbols: {marker: ">"},track_history: true)
         team = Team.find_by_name(input)
         display(team)
         input2 = nil
         while input2 != "Exit"
-            input2 = PROMPT.select("Would you like to select another team?", %w(Teams Exit))
+            input2 = PROMPT.select("Would you like to select another team?", %w(Teams Exit), symbols: {marker: ">"})
             case input2 
             when "Teams"
                 sleep 1
@@ -61,17 +72,19 @@ You have selected the #{selection.name}! Their first year in the National Hockey
 
 For up-to-date rosters, schedule, and info, visit the team's official website at #{selection.official_site_url}.
 
-------------------------------------------------------------------------------------------------------------------------------"
+------------------------------------------------------------------------------------------------------------------------------
+
+"
     end
 
     def goodbye
         puts "
-
 -------------------------------------------------------------------------------------------------------------------------------
 
 Thank you for visiting the NHL Team Origins App. Take care and finish all your checks!
 
 -------------------------------------------------------------------------------------------------------------------------------
+
 "
         exit
     end
