@@ -2,8 +2,6 @@ class CLI
     def run
         sleep(0.5)
         greeting
-        sleep 2
-        disclaimer
         sleep 4
         menu
     end
@@ -27,13 +25,11 @@ class CLI
 *            WELCOME TO THE NHL TEAM ORIGINS APP. LET'S DROP THE PUCK!              *
 *                                                                                   *
 *************************************************************************************"
-    end
-
-    def disclaimer
+        sleep 2
         puts "
 ======================================================================================        
 NOTE: This app displays data about the inaugural season of each active NHL franchise.
-Some franchises have changed cities and team names during their existences.                  
+Some franchises have changed cities and team names during their existence.                  
 ======================================================================================"
     end
 
@@ -47,7 +43,7 @@ Some franchises have changed cities and team names during their existences.
 
 Which team would you like to know more about? Scroll down for more options!
 
-        ", list, per_page: 10, symbols: {marker: ">"},track_history: true)
+        ", list, per_page: 10, symbols: {marker: ">"}, track_history: true)
         team = Team.find_by_name(input)
         display(team)
         input2 = nil
@@ -65,7 +61,7 @@ Which team would you like to know more about? Scroll down for more options!
     end
     
     def display(selection) 
- puts "
+        puts "
 ------------------------------------------------------------------------------------------------------------------------------
 
 You have selected the #{selection.name}! Their first year in the National Hockey League was #{selection.first_year_of_play}.
